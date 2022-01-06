@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorTimeActionFilterAttribute", "MonitorTimeActionFilterAttribute\MonitorTimeActionFilterAttribute.csproj", "{66B52205-7BD9-44BD-8758-5B8791F2E2FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorTimeActionFilter", "MonitorTimeActionFilterAttribute\MonitorTimeActionFilter.csproj", "{66B52205-7BD9-44BD-8758-5B8791F2E2FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

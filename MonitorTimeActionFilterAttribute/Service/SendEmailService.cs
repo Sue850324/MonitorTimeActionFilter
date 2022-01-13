@@ -1,5 +1,4 @@
 ﻿using MonitorTimeActionFilterAttribute.Interface;
-using MonitorTimeActionFilterAttribute.Models;
 using System.Net;
 using System.Net.Mail;
 
@@ -7,7 +6,7 @@ namespace MonitorTimeActionFilterAttribute.Service
 {
     public class SendEmailService :ISendAlert
     {
-        public void Send(SendMessageInfo model)
+        public void Send()
         {
             //設定smtp主機
             string smtpAddress = "smtp.gmail.com";
@@ -15,14 +14,14 @@ namespace MonitorTimeActionFilterAttribute.Service
             int portNumber = 587;
             bool enableSSL = true;
             //填入寄送方email和密碼
-            string emailFrom = model.EmailFrom;
-            string password = model.Password;
+            string emailFrom = "testEmail@gmail.com";//虛構
+            string password = "test01234";//虛構
             //收信方email 可以用逗號區分多個收件人                
-            string emailTo = model.EmailTo;
+            string emailTo = "test2Email@gmail.com";//虛構
             //主旨
-            string subject = model.Subject;
+            string subject = "[系統]警告信";
             //內容
-            string body = model.Body;
+            string body = "執行時間超過五秒";
 
             using (MailMessage mail = new MailMessage())
             {

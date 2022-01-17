@@ -1,8 +1,10 @@
-﻿using MonitorTimeActionFilterAttribute.Service;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Web.Mvc;
+using MonitorTimeActionFilterAttribute.Resource;
+using MonitorTimeActionFilterAttribute.Service;
+using static MonitorTimeActionFilterAttribute.Service.GetAlertFactory;
 
 namespace MonitorTimeActionFilterAttribute.ActionFilter
 {
@@ -11,7 +13,6 @@ namespace MonitorTimeActionFilterAttribute.ActionFilter
     {
         private Stopwatch sw = new Stopwatch();
         private AlertTypes _types { get; set; }
-        private int Seconds { get; set; }
         public MonitorExecutionTimeActionFilterAttribute(AlertTypes type)
         {
             _types = type;
@@ -21,12 +22,6 @@ namespace MonitorTimeActionFilterAttribute.ActionFilter
         {
             sw.Start();
             Thread.Sleep(1000);
-
-            filterContext.Result = new ViewResult()
-            {
-                ViewName = "Error",
-                ViewData = filterContext.Controller.ViewData
-            };
         }
 
         public override void OnResultExecuted(ResultExecutedContext filterContext)
@@ -37,15 +32,8 @@ namespace MonitorTimeActionFilterAttribute.ActionFilter
             if (sw.ElapsedMilliseconds >= 5000)
             {
                 SystemAlertService systemAlert = new SystemAlertService();
-                systemAlert.Send(_types);
+                systemAlert.Send(_types, EmailElement.AlertSubject, EmailElement.AlertContent);                
             }
         }
-    }
-
-    public enum AlertTypes
-    {
-        Email = 1,
-        Line = 2,
-        All
     }
 }

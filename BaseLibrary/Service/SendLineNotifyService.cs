@@ -7,7 +7,7 @@ namespace MonitorTimeActionFilterAttribute.Service
 {
     public class SendLineNotifyService : ISendAlert
     {
-        public void Send()
+        public void Send(string subject, string context)
         {
             using (var wc = new WebClient())
             {
@@ -16,7 +16,7 @@ namespace MonitorTimeActionFilterAttribute.Service
                 wc.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
                 wc.Headers.Add("Authorization", $"Bearer {bearer}");
                 var nv = new NameValueCollection();
-                nv["message"] = "監控測試:系統執行時間超過五秒";
+                nv["message"] = context;
                 var bResult = wc.UploadValues($"https://notify-api.line.me/api/notify", nv);
                 var res = Encoding.UTF8.GetString(bResult);
             }

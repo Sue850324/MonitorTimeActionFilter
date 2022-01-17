@@ -21,12 +21,10 @@ namespace MonitorTimeActionFilterAttribute.ActionFilter
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             sw.Start();
-            Thread.Sleep(1000);
         }
 
         public override void OnResultExecuted(ResultExecutedContext filterContext)
         {
-            Thread.Sleep(6000);
             sw.Stop();
 
             if (sw.ElapsedMilliseconds >= 5000)

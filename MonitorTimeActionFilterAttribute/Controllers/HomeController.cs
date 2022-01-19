@@ -18,6 +18,7 @@ namespace MonitorTimeActionFilterAttribute.Controllers
             return View();
         }
 
+        [DelayResponseActionFilter]
         [MonitorExecutionTimeActionFilter(AlertTypes.Line)]
         public ActionResult Line()
         {

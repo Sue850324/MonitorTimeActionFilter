@@ -1,14 +1,15 @@
-﻿using MonitorTimeActionFilterAttribute.Interface;
-using System.Net;
+﻿using System.Net;
 using System.Net.Mail;
 using System;
 using System.Web.Configuration;
+using BaseLibrary.Base;
+using static MonitorTimeActionFilterAttribute.Service.GetAlertFactory;
 
 namespace MonitorTimeActionFilterAttribute.Service
 {
-    public class SendEmailService :ISendAlert
+    public class SendEmailService : BaseAlertService
     {
-        public void Send(string subject, string context)
+        protected override bool DoSend(string subject, string context)
         {
             string emailFrom = WebConfigurationManager.AppSettings["AlertEmail"];
             string host = WebConfigurationManager.AppSettings["Host"];
@@ -24,11 +25,22 @@ namespace MonitorTimeActionFilterAttribute.Service
                 mail.Body = context;
                 mail.IsBodyHtml = false;
 
-                using (SmtpClient smtp = new SmtpClient(host, portNumber))
+                try
                 {
-                    smtp.Credentials = new NetworkCredential(emailFrom, password);
-                    smtp.EnableSsl = true;
-                    smtp.Send(mail);
+                    using (SmtpClient smtp = new SmtpClient(host, portNumber))
+                    {
+                        smtp.Credentials = new NetworkCredential(emailFrom, password);
+                        smtp.EnableSsl = true;
+                        smtp.Send(mail);
+                    }
+
+                    Send(PublishTypes.Line, subject, context);
+
+                    return true;
+                }
+                catch
+                {
+                    return false;
                 }
             }       
         }

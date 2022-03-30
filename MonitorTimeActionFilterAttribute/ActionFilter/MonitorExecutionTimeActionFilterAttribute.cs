@@ -25,12 +25,13 @@ namespace MonitorTimeActionFilterAttribute.ActionFilter
 
         public override void OnResultExecuted(ResultExecutedContext filterContext)
         {
+            Thread.Sleep(6000);
             sw.Stop();
 
             if (sw.ElapsedMilliseconds >= 5000)
             {
                 SystemAlertService systemAlert = new SystemAlertService();
-                systemAlert.Send(_types, EmailElement.AlertSubject, EmailElement.AlertContent);                
+                systemAlert.SendAlert(_types, EmailElement.AlertSubject, EmailElement.AlertContent);                
             }
         }
     }

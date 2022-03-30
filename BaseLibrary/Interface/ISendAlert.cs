@@ -1,8 +1,9 @@
-﻿
+﻿using static MonitorTimeActionFilterAttribute.Service.GetAlertFactory;
+
 namespace MonitorTimeActionFilterAttribute.Interface
 {
     public interface ISendAlert
     {
-        void Send(string subject, string context);
+       void Send(PublishTypes publishTypes, string subject, string context);
     }
 }
